@@ -2,9 +2,14 @@ import { api } from "./client";
 import type {
   DashboardResponse,
   EventsSummaryResponse,
+  InventoryEventsSummaryResponse,
+  MatchBucket,
+  NotificationLatencyResponse,
+  RecipeInteractionsSummary,
   SavingsResponse,
-  ScanStatsResponse,
+  TopCookedRecipe,
   UserSegmentResponse,
+  ViewsVsCooksRow,
   WasteSummaryResponse,
   WasteTrendItem,
 } from "../types/api";
@@ -55,7 +60,45 @@ export async function getEventsSummary(days = 30): Promise<EventsSummaryResponse
   return data;
 }
 
-export async function getScanStats(): Promise<ScanStatsResponse> {
-  const { data } = await api.get<ScanStatsResponse>(`${BASE}/scan-stats`);
+export async function getNotificationLatency(days = 30): Promise<NotificationLatencyResponse> {
+  const { data } = await api.get<NotificationLatencyResponse>(`${BASE}/notification-latency`, {
+    params: { days },
+  });
   return data;
 }
+
+export async function getInventoryEventsSummary(days = 30): Promise<InventoryEventsSummaryResponse> {
+  const { data } = await api.get<InventoryEventsSummaryResponse>(`${BASE}/inventory-events/summary`, {
+    params: { days },
+  });
+  return data;
+}
+
+export async function getRecipeInteractionsSummary(days = 30): Promise<RecipeInteractionsSummary> {
+  const { data } = await api.get<RecipeInteractionsSummary>(`${BASE}/recipe-interactions/summary`, {
+    params: { days },
+  });
+  return data;
+}
+
+export async function getTopCookedRecipes(days = 30, limit = 10): Promise<TopCookedRecipe[]> {
+  const { data } = await api.get<TopCookedRecipe[]>(`${BASE}/recipe-interactions/top-cooked`, {
+    params: { days, limit },
+  });
+  return data;
+}
+
+export async function getViewsVsCooks(days = 30, limit = 10): Promise<ViewsVsCooksRow[]> {
+  const { data } = await api.get<ViewsVsCooksRow[]>(`${BASE}/recipe-interactions/views-vs-cooks`, {
+    params: { days, limit },
+  });
+  return data;
+}
+
+export async function getMatchDistribution(days = 30): Promise<MatchBucket[]> {
+  const { data } = await api.get<MatchBucket[]>(`${BASE}/recipe-interactions/match-distribution`, {
+    params: { days },
+  });
+  return data;
+}
+

@@ -1,5 +1,5 @@
 import { useApi } from "../../hooks/useApi";
-import { getScanStats } from "../../api/analytics";
+import { getScanStatsGlobal as getScanStats } from "../../api/telemetry";
 import BQCard from "../BQCard";
 import {
   BarChart,
@@ -17,9 +17,7 @@ export default function CameraCrashRateCard() {
 
   const crashRatePct = data ? data.crash_rate * 100 : 0;
   const breakdownRows = data
-    ? Object.entries(data.failure_breakdown)
-        .map(([reason, count]) => ({ reason, count }))
-        .sort((a, b) => b.count - a.count)
+    ? [...data.failure_breakdown].sort((a, b) => b.count - a.count)
     : [];
 
   const rateColor =

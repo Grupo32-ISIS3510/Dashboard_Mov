@@ -65,12 +65,96 @@ export type EventsSummaryResponse = {
   breakdown: EventCount[];
 };
 
-// Camera scan stats (T1.2 crash rate) — GET /api/v1/analytics/scan-stats
+// Camera scan stats (T1.2 crash rate) — GET /api/v1/telemetry/scan-stats/global
+export type FailureBreakdownItem = {
+  reason: string;
+  count: number;
+};
+
 export type ScanStatsResponse = {
   total_scans: number;
   successful_scans: number;
   failed_scans: number;
   crash_rate: number;
   avg_duration_ms: number;
-  failure_breakdown: Record<string, number>;
+  failure_breakdown: FailureBreakdownItem[];
+};
+
+// Notification latency — GET /api/v1/analytics/notification-latency
+export type LatencyBucket = {
+  bucket: string;
+  count: number;
+};
+
+export type NotificationLatencyResponse = {
+  avg_seconds: number;
+  p50_seconds: number;
+  p95_seconds: number;
+  max_seconds: number;
+  sample_size: number;
+  histogram: LatencyBucket[];
+  period_days: number;
+};
+
+// Inventory events summary — GET /api/v1/analytics/inventory-events/summary
+export type InventoryEventsSummaryResponse = {
+  total_registered: number;
+  eligible_for_alert: number;
+  period_days: number;
+};
+
+// Recipe interactions — GET /api/v1/analytics/recipe-interactions/*
+export type RecipeInteractionsSummary = {
+  total_cooked: number;
+  total_viewed: number;
+  cook_through_rate: number;
+  avg_inventory_matches_on_cook: number | null;
+  period_days: number;
+};
+
+export type TopCookedRecipe = {
+  name: string;
+  cooks: number;
+};
+
+export type ViewsVsCooksRow = {
+  name: string;
+  views: number;
+  cooks: number;
+  rate_pct: number | null;
+};
+
+export type MatchBucket = {
+  matches: string;
+  count: number;
+};
+
+// OCR expiry accuracy by category (T3.3) — GET /api/v1/telemetry/expiry-stats
+export type CategoryAccuracyItem = {
+  category: string;
+  total: number;
+  ocr_detected: number;
+  accurate: number;
+  accuracy_rate: number;
+};
+
+export type ExpiryStatsResponse = {
+  total_events: number;
+  overall_detection_rate: number;
+  overall_accuracy_rate: number;
+  by_category: CategoryAccuracyItem[];
+};
+
+// Screen abandonment rate (T3.5) — GET /api/v1/telemetry/abandonment-stats
+export type ScreenAbandonmentItem = {
+  screen_name: string;
+  total_enters: number;
+  completed: number;
+  abandoned: number;
+  abandonment_rate: number;
+};
+
+export type AbandonmentStatsResponse = {
+  total_sessions: number;
+  screens: ScreenAbandonmentItem[];
 };
