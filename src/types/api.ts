@@ -65,7 +65,7 @@ export type EventsSummaryResponse = {
   breakdown: EventCount[];
 };
 
-// Camera scan stats (T1.2 crash rate) — GET /api/v1/telemetry/scan-stats
+// Camera scan stats (T1.2 crash rate) — GET /api/v1/telemetry/scan-stats/global
 export type FailureBreakdownItem = {
   reason: string;
   count: number;
@@ -78,6 +78,55 @@ export type ScanStatsResponse = {
   crash_rate: number;
   avg_duration_ms: number;
   failure_breakdown: FailureBreakdownItem[];
+};
+
+// Notification latency — GET /api/v1/analytics/notification-latency
+export type LatencyBucket = {
+  bucket: string;
+  count: number;
+};
+
+export type NotificationLatencyResponse = {
+  avg_seconds: number;
+  p50_seconds: number;
+  p95_seconds: number;
+  max_seconds: number;
+  sample_size: number;
+  histogram: LatencyBucket[];
+  period_days: number;
+};
+
+// Inventory events summary — GET /api/v1/analytics/inventory-events/summary
+export type InventoryEventsSummaryResponse = {
+  total_registered: number;
+  eligible_for_alert: number;
+  period_days: number;
+};
+
+// Recipe interactions — GET /api/v1/analytics/recipe-interactions/*
+export type RecipeInteractionsSummary = {
+  total_cooked: number;
+  total_viewed: number;
+  cook_through_rate: number;
+  avg_inventory_matches_on_cook: number | null;
+  period_days: number;
+};
+
+export type TopCookedRecipe = {
+  name: string;
+  cooks: number;
+};
+
+export type ViewsVsCooksRow = {
+  name: string;
+  views: number;
+  cooks: number;
+  rate_pct: number | null;
+};
+
+export type MatchBucket = {
+  matches: string;
+  count: number;
 };
 
 // OCR expiry accuracy by category (T3.3) — GET /api/v1/telemetry/expiry-stats

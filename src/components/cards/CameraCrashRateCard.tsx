@@ -1,5 +1,5 @@
 import { useApi } from "../../hooks/useApi";
-import { getScanStats } from "../../api/telemetry";
+import { getScanStatsGlobal as getScanStats } from "../../api/telemetry";
 import BQCard from "../BQCard";
 import {
   BarChart,
