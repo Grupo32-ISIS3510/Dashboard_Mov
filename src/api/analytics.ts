@@ -3,7 +3,6 @@ import type {
   DashboardResponse,
   EventsSummaryResponse,
   SavingsResponse,
-  ScanStatsResponse,
   UserSegmentResponse,
   WasteSummaryResponse,
   WasteTrendItem,
@@ -55,7 +54,3 @@ export async function getEventsSummary(days = 30): Promise<EventsSummaryResponse
   return data;
 }
 
-export async function getScanStats(): Promise<ScanStatsResponse> {
-  const { data } = await api.get<ScanStatsResponse>(`${BASE}/scan-stats`);
-  return data;
-}

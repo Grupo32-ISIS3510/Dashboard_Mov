@@ -65,12 +65,47 @@ export type EventsSummaryResponse = {
   breakdown: EventCount[];
 };
 
-// Camera scan stats (T1.2 crash rate) — GET /api/v1/analytics/scan-stats
+// Camera scan stats (T1.2 crash rate) — GET /api/v1/telemetry/scan-stats
+export type FailureBreakdownItem = {
+  reason: string;
+  count: number;
+};
+
 export type ScanStatsResponse = {
   total_scans: number;
   successful_scans: number;
   failed_scans: number;
   crash_rate: number;
   avg_duration_ms: number;
-  failure_breakdown: Record<string, number>;
+  failure_breakdown: FailureBreakdownItem[];
+};
+
+// OCR expiry accuracy by category (T3.3) — GET /api/v1/telemetry/expiry-stats
+export type CategoryAccuracyItem = {
+  category: string;
+  total: number;
+  ocr_detected: number;
+  accurate: number;
+  accuracy_rate: number;
+};
+
+export type ExpiryStatsResponse = {
+  total_events: number;
+  overall_detection_rate: number;
+  overall_accuracy_rate: number;
+  by_category: CategoryAccuracyItem[];
+};
+
+// Screen abandonment rate (T3.5) — GET /api/v1/telemetry/abandonment-stats
+export type ScreenAbandonmentItem = {
+  screen_name: string;
+  total_enters: number;
+  completed: number;
+  abandoned: number;
+  abandonment_rate: number;
+};
+
+export type AbandonmentStatsResponse = {
+  total_sessions: number;
+  screens: ScreenAbandonmentItem[];
 };
