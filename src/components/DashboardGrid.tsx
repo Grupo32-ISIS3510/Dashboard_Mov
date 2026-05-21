@@ -6,6 +6,7 @@ import ExpiryAccuracyCard from "./cards/ExpiryAccuracyCard";
 import AbandonmentRateCard from "./cards/AbandonmentRateCard";
 import NotificationLatencyCard from "./cards/NotificationLatencyCard";
 import NotificationVolumeCard from "./cards/NotificationVolumeCard";
+import AlertResponseTimeCard from "./cards/AlertResponseTimeCard";
 import RecipeInteractionsCard from "./cards/RecipeInteractionsCard";
 
 type Props = { refreshKey: number };
@@ -34,6 +35,7 @@ export default function DashboardGrid({ refreshKey }: Props) {
       <SectionLabel label="Notificaciones — Latencia & Engagement" />
       <NotificationLatencyCard />
       <NotificationVolumeCard />
+      <AlertResponseTimeCard />
       <SegmentCard />
 
       <SectionLabel label="Recetas — BQ T2.3" />

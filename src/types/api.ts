@@ -158,3 +158,19 @@ export type AbandonmentStatsResponse = {
   total_sessions: number;
   screens: ScreenAbandonmentItem[];
 };
+
+// Alert response times (T3.4) — GET /api/v1/analytics/alert-response-times
+export type AlertResponseBucket = {
+  bucket: string;
+  count: number;
+};
+
+export type AlertResponseTimeResponse = {
+  avg_hours: number;
+  p50_hours: number;
+  p95_hours: number;
+  max_hours: number;
+  sample_size: number;
+  period_days: number;
+  histogram: AlertResponseBucket[];
+};
