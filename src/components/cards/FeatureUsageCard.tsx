@@ -49,7 +49,7 @@ export default function FeatureUsageCard() {
     <BQCard
       id="T3.1"
       title="Weekly Feature Usage Frequency"
-      type="Usage Analysis"
+      type="Feature Analysis"
       loading={loading}
       error={error}
       onRetry={refetch}
