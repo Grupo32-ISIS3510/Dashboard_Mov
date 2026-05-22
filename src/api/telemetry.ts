@@ -3,6 +3,7 @@ import type {
   ScanStatsResponse,
   ExpiryStatsResponse,
   AbandonmentStatsResponse,
+  FeatureUsageStatsResponse,
 } from "../types/api";
 
 const BASE = "/api/v1/telemetry";
@@ -32,5 +33,15 @@ export async function getAbandonmentStats(days = 30): Promise<AbandonmentStatsRe
   const { data } = await api.get<AbandonmentStatsResponse>(`${BASE}/abandonment-stats`, {
     params: { days },
   });
+  return data;
+}
+
+export async function getFeatureUsageStats(
+  days = 7,
+): Promise<FeatureUsageStatsResponse> {
+  const { data } = await api.get<FeatureUsageStatsResponse>(
+    `${BASE}/feature-usage-stats`,
+    { params: { days } },
+  );
   return data;
 }

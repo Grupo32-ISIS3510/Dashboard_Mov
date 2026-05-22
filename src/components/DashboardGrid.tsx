@@ -4,8 +4,10 @@ import SegmentCard from "./cards/SegmentCard";
 import CameraCrashRateCard from "./cards/CameraCrashRateCard";
 import ExpiryAccuracyCard from "./cards/ExpiryAccuracyCard";
 import AbandonmentRateCard from "./cards/AbandonmentRateCard";
+import FeatureUsageCard from "./cards/FeatureUsageCard";
 import NotificationLatencyCard from "./cards/NotificationLatencyCard";
 import NotificationVolumeCard from "./cards/NotificationVolumeCard";
+import AlertResponseTimeCard from "./cards/AlertResponseTimeCard";
 import RecipeInteractionsCard from "./cards/RecipeInteractionsCard";
 
 type Props = { refreshKey: number };
@@ -30,10 +32,14 @@ export default function DashboardGrid({ refreshKey }: Props) {
       <CameraCrashRateCard />
       <ExpiryAccuracyCard />
       <AbandonmentRateCard />
+      <div className="lg:col-span-2 md:col-span-2">
+        <FeatureUsageCard />
+      </div>
 
       <SectionLabel label="Notificaciones — Latencia & Engagement" />
       <NotificationLatencyCard />
       <NotificationVolumeCard />
+      <AlertResponseTimeCard />
       <SegmentCard />
 
       <SectionLabel label="Recetas — BQ T2.3" />

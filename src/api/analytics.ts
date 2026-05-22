@@ -1,5 +1,6 @@
 import { api } from "./client";
 import type {
+  AlertResponseTimeResponse,
   DashboardResponse,
   EventsSummaryResponse,
   InventoryEventsSummaryResponse,
@@ -99,6 +100,16 @@ export async function getMatchDistribution(days = 30): Promise<MatchBucket[]> {
   const { data } = await api.get<MatchBucket[]>(`${BASE}/recipe-interactions/match-distribution`, {
     params: { days },
   });
+  return data;
+}
+
+export async function getAlertResponseTimes(
+  days = 30
+): Promise<AlertResponseTimeResponse> {
+  const { data } = await api.get<AlertResponseTimeResponse>(
+    `${BASE}/alert-response-times`,
+    { params: { days } }
+  );
   return data;
 }
 

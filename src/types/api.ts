@@ -158,3 +158,39 @@ export type AbandonmentStatsResponse = {
   total_sessions: number;
   screens: ScreenAbandonmentItem[];
 };
+
+// Alert response times (T3.4) — GET /api/v1/analytics/alert-response-times
+export type AlertResponseBucket = {
+  bucket: string;
+  count: number;
+};
+
+export type AlertResponseTimeResponse = {
+  avg_hours: number;
+  p50_hours: number;
+  p95_hours: number;
+  max_hours: number;
+  sample_size: number;
+  period_days: number;
+  histogram: AlertResponseBucket[];
+};
+
+// Feature usage frequency (T3.1) — GET /api/v1/telemetry/feature-usage-stats
+export type FeatureFrequencyBucket = {
+  bucket: string; // "1" | "2-5" | "6-10" | "11+"
+  users: number;
+};
+
+export type FeatureUsageItem = {
+  feature: string;
+  total_uses: number;
+  active_users: number;
+  avg_uses_per_user: number;
+  distribution: FeatureFrequencyBucket[];
+};
+
+export type FeatureUsageStatsResponse = {
+  period_days: number;
+  active_users: number;
+  features: FeatureUsageItem[];
+};
