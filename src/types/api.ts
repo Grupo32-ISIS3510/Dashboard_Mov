@@ -165,14 +165,22 @@ export type AlertResponseBucket = {
   count: number;
 };
 
+export type AlertResponseCategoryStat = {
+  category: string;
+  sample_size: number;
+  avg_minutes: number;
+  p50_minutes: number;
+};
+
 export type AlertResponseTimeResponse = {
-  avg_hours: number;
-  p50_hours: number;
-  p95_hours: number;
-  max_hours: number;
+  avg_minutes: number;
+  p50_minutes: number;
+  p95_minutes: number;
+  max_minutes: number;
   sample_size: number;
   period_days: number;
   histogram: AlertResponseBucket[];
+  by_category: AlertResponseCategoryStat[];
 };
 
 // Feature usage frequency (T3.1) — GET /api/v1/telemetry/feature-usage-stats
