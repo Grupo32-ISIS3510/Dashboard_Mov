@@ -202,3 +202,66 @@ export type FeatureUsageStatsResponse = {
   active_users: number;
   features: FeatureUsageItem[];
 };
+
+// Waste reduction by recipe category (T3.2)
+// GET /api/v1/analytics/waste-reduction-by-recipe-category
+export type WasteReductionCategoryItem = {
+  recipe_category: string | null;
+  cooks: number;
+  items_rescued: number;
+  items_consumed_total: number;
+  value_rescued_cop: string;
+  rescue_rate: number;
+  unique_users: number;
+};
+
+export type WasteReductionByRecipeCategoryResponse = {
+  period_days: number;
+  rescue_window_days: number;
+  total_cooks: number;
+  total_items_rescued: number;
+  total_value_rescued_cop: string;
+  by_category: WasteReductionCategoryItem[];
+};
+
+// Favorites distribution (T3.6) — GET /api/v1/analytics/favorites-distribution
+export type FavoritesByCategoryItem = {
+  category: string;
+  favorites_count: number;
+  unique_users: number;
+  pct_of_total: number;
+};
+
+export type FavoriteTopIngredient = {
+  ingredient_name: string;
+  favorites_count: number;
+  pct_of_total: number;
+};
+
+export type FavoritesDistributionResponse = {
+  total_favorites: number;
+  unique_users: number;
+  by_category: FavoritesByCategoryItem[];
+  top_ingredients: FavoriteTopIngredient[];
+};
+
+// Segment behavior patterns (T4.1) — GET /api/v1/analytics/segments/patterns
+export type SegmentPatternKind = "passive" | "neutral" | "proactive";
+
+export type SegmentPattern = {
+  segment: SegmentPatternKind;
+  user_count: number;
+  avg_recipes_cooked_30d: number;
+  avg_notification_open_rate: number;
+  avg_items_registered_30d: number;
+  avg_items_wasted_30d: number;
+  avg_alert_response_hours: number | null;
+  avg_favorites: number;
+  top_features: string[];
+};
+
+export type SegmentsPatternsResponse = {
+  period_days: number;
+  total_users_analyzed: number;
+  segments: SegmentPattern[];
+};
