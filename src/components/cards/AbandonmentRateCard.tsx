@@ -112,10 +112,12 @@ export default function AbandonmentRateCard() {
                       color: theme.text,
                       fontSize: 12,
                     }}
-                    formatter={(value: number, _name: string, entry) => {
+                    formatter={(value, _name, entry) => {
+                      const rate =
+                        typeof value === "number" ? value : Number(value) || 0;
                       const p = entry.payload as (typeof chartData)[number];
                       return [
-                        `${value}% (${p.abandoned} left / ${p.enters} entered)`,
+                        `${rate}% (${p.abandoned} left / ${p.enters} entered)`,
                         "Abandonment",
                       ];
                     }}

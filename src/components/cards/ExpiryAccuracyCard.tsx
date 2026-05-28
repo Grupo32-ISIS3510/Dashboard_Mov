@@ -101,10 +101,12 @@ export default function ExpiryAccuracyCard() {
                       color: theme.text,
                       fontSize: 12,
                     }}
-                    formatter={(value: number, _name: string, entry) => {
+                    formatter={(value, _name, entry) => {
+                      const accuracy =
+                        typeof value === "number" ? value : Number(value) || 0;
                       const p = entry.payload as (typeof chartData)[number];
                       return [
-                        `${value}% (${p.accurate}/${p.detected} of ${p.total})`,
+                        `${accuracy}% (${p.accurate}/${p.detected} of ${p.total})`,
                         "Accuracy",
                       ];
                     }}

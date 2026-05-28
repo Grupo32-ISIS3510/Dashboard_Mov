@@ -3,14 +3,17 @@ import type {
   AlertResponseTimeResponse,
   DashboardResponse,
   EventsSummaryResponse,
+  FavoritesDistributionResponse,
   InventoryEventsSummaryResponse,
   MatchBucket,
   NotificationLatencyResponse,
   RecipeInteractionsSummary,
   SavingsResponse,
+  SegmentsPatternsResponse,
   TopCookedRecipe,
   UserSegmentResponse,
   ViewsVsCooksRow,
+  WasteReductionByRecipeCategoryResponse,
   WasteSummaryResponse,
   WasteTrendItem,
 } from "../types/api";
@@ -108,6 +111,37 @@ export async function getAlertResponseTimes(
 ): Promise<AlertResponseTimeResponse> {
   const { data } = await api.get<AlertResponseTimeResponse>(
     `${BASE}/alert-response-times`,
+    { params: { days } }
+  );
+  return data;
+}
+
+export async function getWasteReductionByRecipeCategory(
+  days = 30,
+  rescue_window_days = 3
+): Promise<WasteReductionByRecipeCategoryResponse> {
+  const { data } = await api.get<WasteReductionByRecipeCategoryResponse>(
+    `${BASE}/waste-reduction-by-recipe-category`,
+    { params: { days, rescue_window_days } }
+  );
+  return data;
+}
+
+export async function getFavoritesDistribution(
+  top_ingredients = 10
+): Promise<FavoritesDistributionResponse> {
+  const { data } = await api.get<FavoritesDistributionResponse>(
+    `${BASE}/favorites-distribution`,
+    { params: { top_ingredients } }
+  );
+  return data;
+}
+
+export async function getSegmentsPatterns(
+  days = 30
+): Promise<SegmentsPatternsResponse> {
+  const { data } = await api.get<SegmentsPatternsResponse>(
+    `${BASE}/segments/patterns`,
     { params: { days } }
   );
   return data;
