@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { getToken } from "../api/client";
 
 export type UseApiState<T> = {
   data: T | null;
@@ -16,6 +17,12 @@ export function useApi<T>(fn: () => Promise<T>, deps: unknown[] = []): UseApiSta
   const run = useCallback(async () => {
     setLoading(true);
     setError(null);
+    if (!getToken()) {
+      setData(null);
+      setError("Debes iniciar sesión para cargar esta tarjeta.");
+      setLoading(false);
+      return;
+    }
     try {
       const res = await fn();
       setData(res);

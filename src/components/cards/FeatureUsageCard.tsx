@@ -119,8 +119,8 @@ export default function FeatureUsageCard() {
                       color: theme.text,
                       fontSize: 12,
                     }}
-                    formatter={(value: number, name: string) => [
-                      `${value} users`,
+                    formatter={(value, name) => [
+                      `${typeof value === "number" ? value : Number(value) || 0} users`,
                       `${name} uses`,
                     ]}
                   />
