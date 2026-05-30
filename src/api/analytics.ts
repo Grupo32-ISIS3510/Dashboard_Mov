@@ -5,6 +5,7 @@ import type {
   EventsSummaryResponse,
   FavoritesDistributionResponse,
   InventoryEventsSummaryResponse,
+  MarketProductTrendsResponse,
   MatchBucket,
   NotificationLatencyResponse,
   RecipeInteractionsSummary,
@@ -143,6 +144,19 @@ export async function getSegmentsPatterns(
   const { data } = await api.get<SegmentsPatternsResponse>(
     `${BASE}/segments/patterns`,
     { params: { days } }
+  );
+  return data;
+}
+
+// T4.2 — Market / demand insights (cross-user, anonymized, no auth required)
+export async function getTopProducts(
+  top_n = 10,
+  category?: string,
+  min_users = 1
+): Promise<MarketProductTrendsResponse> {
+  const { data } = await api.get<MarketProductTrendsResponse>(
+    `${BASE}/market/top-products`,
+    { params: { top_n, category, min_users } }
   );
   return data;
 }

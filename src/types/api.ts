@@ -265,3 +265,29 @@ export type SegmentsPatternsResponse = {
   total_users_analyzed: number;
   segments: SegmentPattern[];
 };
+
+// Market — top products & categories (T4.2, cross-user, anonymized)
+// GET /api/v1/analytics/market/top-products
+export type ProductTrendItem = {
+  product_name: string;
+  category: string | null;
+  consumption_count: number;
+  unique_users: number;
+  repurchase_rate: number;
+  avg_consumption_per_user: number;
+};
+
+export type CategoryTrendItem = {
+  category: string;
+  total_consumption: number;
+  unique_users: number;
+  top_product: string | null;
+};
+
+export type MarketProductTrendsResponse = {
+  generated_at: string;
+  total_users_analyzed: number;
+  top_n: number;
+  products: ProductTrendItem[];
+  categories: CategoryTrendItem[];
+};

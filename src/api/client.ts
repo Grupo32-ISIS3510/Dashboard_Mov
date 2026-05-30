@@ -1,6 +1,12 @@
 import axios from "axios";
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+// En dev usamos el proxy de Vite (vite.config.ts → server.proxy['/api']) para
+// evitar CORS: axios manda la URL relativa, el navegador la dispara contra
+// localhost:5173, y Vite la reenvía server-to-server al backend AWS.
+// En el build de producción usamos la URL absoluta del backend.
+export const API_BASE_URL = import.meta.env.DEV
+  ? ""
+  : (import.meta.env.VITE_API_BASE_URL as string);
 
 export const TOKEN_KEY = "ss_token";
 

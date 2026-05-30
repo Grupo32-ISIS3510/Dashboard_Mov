@@ -12,6 +12,7 @@ import RecipeInteractionsCard from "./cards/RecipeInteractionsCard";
 import WasteReductionByRecipeCategory from "../features/analytics/WasteReductionByRecipeCategory";
 import FavoritesDistribution from "../features/analytics/FavoritesDistribution";
 import SegmentsPatterns from "../features/analytics/SegmentsPatterns";
+import MarketTopProductsCard from "./cards/MarketTopProductsCard";
 
 type Props = { refreshKey: number };
 
@@ -61,6 +62,11 @@ export default function DashboardGrid({ refreshKey }: Props) {
       <SectionLabel label="Segmentación — Patrones de comportamiento" />
       <div className="lg:col-span-3 md:col-span-2">
         <SegmentsPatterns />
+      </div>
+
+      <SectionLabel label="Mercado — cross-user · BQ T4.2" />
+      <div className="lg:col-span-3 md:col-span-2">
+        <MarketTopProductsCard />
       </div>
 
       <SectionLabel label="Desperdicio & Ahorro" />
