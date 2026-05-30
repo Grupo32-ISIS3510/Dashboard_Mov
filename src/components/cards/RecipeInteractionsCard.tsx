@@ -141,7 +141,10 @@ export default function RecipeInteractionsCard() {
                         color: theme.text,
                         fontSize: 12,
                       }}
-                      formatter={(v: number) => [v, "cocinadas"]}
+                      formatter={(v) => [
+                        typeof v === "number" ? v : Number(v) || 0,
+                        "cocinadas",
+                      ]}
                     />
                     <Bar dataKey="cooks" fill={chartPalette[0]} radius={[0, 4, 4, 0]} />
                   </BarChart>
@@ -241,7 +244,10 @@ export default function RecipeInteractionsCard() {
                         color: theme.text,
                         fontSize: 12,
                       }}
-                      formatter={(v: number) => [v, "cocciones"]}
+                      formatter={(v) => [
+                        typeof v === "number" ? v : Number(v) || 0,
+                        "cocciones",
+                      ]}
                     />
                     <Bar dataKey="count" radius={[4, 4, 0, 0]}>
                       {matchDist.data!.map((_, i) => (

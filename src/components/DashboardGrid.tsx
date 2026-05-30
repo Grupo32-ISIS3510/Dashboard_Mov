@@ -9,6 +9,10 @@ import NotificationLatencyCard from "./cards/NotificationLatencyCard";
 import NotificationVolumeCard from "./cards/NotificationVolumeCard";
 import AlertResponseTimeCard from "./cards/AlertResponseTimeCard";
 import RecipeInteractionsCard from "./cards/RecipeInteractionsCard";
+import WasteReductionByRecipeCategory from "../features/analytics/WasteReductionByRecipeCategory";
+import FavoritesDistribution from "../features/analytics/FavoritesDistribution";
+import SegmentsPatterns from "../features/analytics/SegmentsPatterns";
+import MarketTopProductsCard from "./cards/MarketTopProductsCard";
 
 type Props = { refreshKey: number };
 
@@ -45,6 +49,24 @@ export default function DashboardGrid({ refreshKey }: Props) {
       <SectionLabel label="Recetas — BQ T2.3" />
       <div className="lg:col-span-3 md:col-span-2">
         <RecipeInteractionsCard />
+      </div>
+
+      <SectionLabel label="Recetas — Impacto & Favoritos" />
+      <div className="lg:col-span-3 md:col-span-2">
+        <WasteReductionByRecipeCategory />
+      </div>
+      <div className="lg:col-span-3 md:col-span-2">
+        <FavoritesDistribution />
+      </div>
+
+      <SectionLabel label="Segmentación — Patrones de comportamiento" />
+      <div className="lg:col-span-3 md:col-span-2">
+        <SegmentsPatterns />
+      </div>
+
+      <SectionLabel label="Mercado — cross-user · BQ T4.2" />
+      <div className="lg:col-span-3 md:col-span-2">
+        <MarketTopProductsCard />
       </div>
 
       <SectionLabel label="Desperdicio & Ahorro" />

@@ -32,8 +32,11 @@ export default function AlertResponseTimeCard() {
     []
   );
 
+  const histogram = data?.histogram ?? [];
+  const byCategory = data?.by_category ?? [];
+
   const categoryData = data
-    ? data.by_category.map((c) => ({
+    ? byCategory.map((c) => ({
         category: c.category,
         avg_minutes: Math.round(c.avg_minutes),
         p50_minutes: Math.round(c.p50_minutes),
@@ -108,14 +111,14 @@ export default function AlertResponseTimeCard() {
             </p>
           ) : (
             <>
-              {data.histogram.length > 0 && (
+              {histogram.length > 0 && (
                 <div className="flex-1 min-h-[150px] mt-2">
                   <div className="text-[11px] text-brand-dim uppercase tracking-wider mb-1">
                     Distribución de tiempos de respuesta
                   </div>
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
-                      data={data.histogram}
+                      data={histogram}
                       margin={{ top: 4, right: 8, bottom: 0, left: 0 }}
                     >
                       <CartesianGrid
