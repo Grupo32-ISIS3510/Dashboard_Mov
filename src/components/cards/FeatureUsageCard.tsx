@@ -22,6 +22,17 @@ const BUCKET_COLORS: Record<string, string> = {
 
 const BUCKETS_ORDER = ["1", "2-5", "6-10", "11+"];
 
+// Etiquetas amigables para los feature ids que emite la app movil
+// (ver FeatureIds en feature_usage_telemetry_service.dart).
+const FEATURE_LABELS: Record<string, string> = {
+  inventory: "Inventory",
+  scan_receipt: "Scan Receipt",
+  recipes: "Recipes",
+  shopping_list: "Shopping List",
+  analytics: "Dashboard",
+  notifications: "Notifications",
+};
+
 export default function FeatureUsageCard() {
   const { data, loading, error, refetch } = useApi(
     () => getFeatureUsageStats(7),
@@ -45,6 +56,11 @@ export default function FeatureUsageCard() {
         .sort((a, b) => (b.avg as number) - (a.avg as number))
     : [];
 
+  // Lista de features trackeadas, ordenada por total de usos descendente.
+  const trackedFeatures = data
+    ? [...data.features].sort((a, b) => b.total_uses - a.total_uses)
+    : [];
+
   return (
     <BQCard
       id="T3.1"
@@ -57,7 +73,10 @@ export default function FeatureUsageCard() {
       {data && (
         <div className="flex-1 flex flex-col gap-3">
           <div className="flex items-center justify-center gap-6">
-            <div className="text-center">
+            <div
+              className="text-center"
+              title="Distinct users that opened at least one tracked feature in the window"
+            >
               <span className="text-4xl font-bold text-brand-text">
                 {data.active_users}
               </span>
@@ -65,7 +84,10 @@ export default function FeatureUsageCard() {
                 active users
               </div>
             </div>
-            <div className="text-center">
+            <div
+              className="text-center"
+              title="Number of distinct feature ids seen in the window"
+            >
               <span className="text-2xl font-semibold text-brand-text">
                 {data.features.length}
               </span>
@@ -73,7 +95,10 @@ export default function FeatureUsageCard() {
                 features tracked
               </div>
             </div>
-            <div className="text-center">
+            <div
+              className="text-center"
+              title="Length of the analysis window in days"
+            >
               <span className="text-2xl font-semibold text-brand-text">
                 {data.period_days}d
               </span>
@@ -82,6 +107,29 @@ export default function FeatureUsageCard() {
               </div>
             </div>
           </div>
+
+          {/* Lista de features trackeadas con su total de usos */}
+          {trackedFeatures.length > 0 && (
+            <div>
+              <div className="text-[11px] text-brand-dim uppercase tracking-wider mb-1">
+                Tracked features (uses in window)
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {trackedFeatures.map((f) => (
+                  <span
+                    key={f.feature}
+                    title={`${f.active_users} users · avg ${f.avg_uses_per_user.toFixed(1)} uses/user`}
+                    className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] bg-brand-panel2 border border-brand-border text-brand-text"
+                  >
+                    <span>{formatFeatureName(f.feature)}</span>
+                    <span className="text-brand-dim font-mono">
+                      {f.total_uses}
+                    </span>
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
 
           {chartData.length > 0 ? (
             <div className="flex-1 min-h-[200px] mt-1">
@@ -157,7 +205,6 @@ export default function FeatureUsageCard() {
 }
 
 function formatFeatureName(raw: string): string {
-  return raw
-    .replace(/_/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  if (FEATURE_LABELS[raw]) return FEATURE_LABELS[raw];
+  return raw.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
